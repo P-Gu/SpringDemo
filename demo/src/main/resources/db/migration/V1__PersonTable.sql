@@ -1,5 +1,5 @@
-CREATE TABLE person(
-    id UUID NOT NULL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL
+create table person(
+    id binary(16) not null,
+    name varchar(100) not null,
+    password varchar(100) not null
 );

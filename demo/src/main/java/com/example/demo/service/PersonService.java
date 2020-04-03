@@ -1,10 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.PersonDao;
+import com.example.demo.model.DayInfo;
 import com.example.demo.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,7 +19,7 @@ public class PersonService {
     private final PersonDao personDao;
 
     @Autowired
-    public PersonService(@Qualifier("postgres") PersonDao personDao) {
+    public PersonService(@Qualifier("mysql") PersonDao personDao) {
         this.personDao = personDao;
     }
 
@@ -26,9 +28,22 @@ public class PersonService {
         return personDao.insertPerson(person);
     }
 
-    public List<Person> getAllPeople() {
+    /*public List<Person> getAllPeople() {
         return personDao.selectAllPeople();
+    }*/
+    public List<DayInfo> getAllDate() {
+        int sum = 0;
+        List<DayInfo> list = personDao.countDay();
+        for (DayInfo info:list) {
+            sum += info.getCount();
+        }
+        // Turn counts into proportions
+        for (DayInfo info:list) {
+            info.setCount(Math.round(info.getCount()*100/sum));
+        }
+        return list;
     }
+
 
     public Optional<Person> getPersonById(UUID id) {
         return personDao.selectPersonById(id);

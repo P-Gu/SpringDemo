@@ -1,10 +1,15 @@
 package com.example.demo.api;
 
+import com.example.demo.dto.PersonDto;
+import com.example.demo.model.DayInfo;
 import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,7 +18,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/demo")
 public class PersonController {
 
@@ -23,6 +28,12 @@ public class PersonController {
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
+
+    /*@GetMapping(path = "/")
+    public String mainPage() {
+        //model.addAttribute("name", "van");
+        return "index";
+    }*/
 
     @PostMapping(path = "/console/users/add")
     public ResponseEntity<String> addPerson(@Valid @NotNull @RequestBody Person person) throws SQLException {
@@ -42,9 +53,19 @@ public class PersonController {
         }
     }
 
-    @GetMapping(path = "/console/users/getAll")
-    public List<Person> getAllPeople() {
-        return personService.getAllPeople();
+    //@GetMapping(path = "/console/users/getAll")//, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/")
+    //
+    //  Calling this controller method will show the actual html page with pie chart for proportion of five days in March
+    //
+    public String getAllDate(Model model) {
+        List<DayInfo> list = personService.getAllDate();
+        for (DayInfo info:list){
+            if ((!info.getDay().equals("Sun"))&&(!info.getDay().equals("Sat")))
+                model.addAttribute(info.getDay(), info.getCount());
+        }
+        return "index";
+        //return personService.getAllPeople();
     }
 
     @GetMapping(path = "/console/users/getById/{id}")

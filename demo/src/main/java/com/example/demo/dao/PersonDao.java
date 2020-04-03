@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.model.DayInfo;
 import com.example.demo.model.Person;
 
 import java.sql.SQLException;
@@ -16,7 +17,8 @@ public interface PersonDao {
         return insertPerson(id, person);
     }
 
-    List<Person> selectAllPeople();
+    //List<Person> selectAllPeople();
+    List<DayInfo> countDay();
 
     Optional<Person> selectPersonById(UUID id);
 
