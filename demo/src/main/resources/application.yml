@@ -2,8 +2,9 @@ app:
   datasource:
   #  jdbc-url: jdbc:postgresql://localhost:5432/demodb
   #  jdbc-url: jdbc:postgresql://demodb.c0qal78clrog.us-east-2.rds.amazonaws.com:5432
-    jdbc-url: jdbc:mysql://mydemodb2.c0qal78clrog.us-east-2.rds.amazonaws.com:3306/main
-    username: mydemodb2
+  #  jdbc-url: jdbc:mysql://mydemodb2.c0qal78clrog.us-east-2.rds.amazonaws.com:3306/main
+    jdbc-url: jdbc:mysql://localhost:3306/data
+    username: root
     password: a84535680
     pool-size: 30
 
