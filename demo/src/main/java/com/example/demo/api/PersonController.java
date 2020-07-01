@@ -64,7 +64,6 @@ public class PersonController {
             if ((!info.getDay().equals("Sun"))&&(!info.getDay().equals("Sat")))
                 model.addAttribute(info.getDay(), info.getCount());
         }
-        //model.addAttribute("Mon", "1");
         return "index";
     }
 
